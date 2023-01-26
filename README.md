@@ -12,8 +12,10 @@
 1. Clonar el repositorio o copiar el `Dockerfile_Desarrollo` dentro de la carpeta del proyacto.
 2. Abrir una terminal en el directorio del proyecto
 3. Correr los siguientes comandos:
-    - ` docker build --build-arg NG_VERSION=14.0.4 --build-arg NODE_VERSION=v14.16.1 -t angular -f .\Dokerfile_Desarrollo . `
-    - ` docker run -p 4200:4200 -v ${pwd}/:/ng-app -it angular bash `
+    - ` docker build --build-arg NG_VERSION=14.2.10 --build-arg NODE_VERSION=v17.6.0 -t angular -f Dockerfile_Desarrollo . `
+    - ` docker run -p 4200:4200 -v $(pwd)/:/ng-app -it angular bash `
+
+_Nota: para asignar el volumen al contenedor es importante estar en la raiz del proyecto y en windows usar `${pwd}` y en linux usar `$(pwd)`_
 
 #### _Build_
 
