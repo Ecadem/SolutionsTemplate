@@ -1,0 +1,29 @@
+FROM ubuntu:22.04
+
+# Argumentos
+ARG NG_VERSION
+ARG NODE_VERSION
+
+# Variables de entorno para nvm
+ENV NODE_VERSION=${NODE_VERSION}
+ENV NVM_DIR /usr/local/nvm
+
+# Actualizacion e instalacion de paquetes
+RUN apt update
+RUN apt install nodejs npm curl -y
+
+# Se instala nvm para el control de versiones de Nodejs
+RUN mkdir -p /usr/local/nvm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+RUN /bin/bash -c "source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use --delete-prefix $NODE_VERSION"
+
+# Se importa el proyecto
+RUN mkdir /ng-app
+WORKDIR /ng-app
+COPY . .
+
+# Se instalan dependencias de angular
+RUN npm install -g @angular/cli@${NG_VERSION}
+RUN npm install --legacy-peer-deps
+
+EXPOSE 4200
